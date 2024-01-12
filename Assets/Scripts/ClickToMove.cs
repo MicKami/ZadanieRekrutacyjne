@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ClickToMove : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class ClickToMove : MonoBehaviour
 	private void Update()
 	{
 		if (selectionData.Selected == null) return;
+
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
 		{
 			if (TryGetFloorPoint(out var point))
 			{
