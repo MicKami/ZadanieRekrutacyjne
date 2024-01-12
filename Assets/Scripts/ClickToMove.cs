@@ -6,7 +6,7 @@ public class ClickToMove : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (selectionData.Selected == null) return;
 		{
 			if (TryGetFloorPoint(out var point))
 			{
