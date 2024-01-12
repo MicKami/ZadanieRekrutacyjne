@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.mickami.polymorphic-serialization": {
+      "version": "https://github.com/MicKami/PolymorphicSerialization.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "897fcb7e670a87727d1bbc16857b53cb381a0871"
+    },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
       "depth": 0,
