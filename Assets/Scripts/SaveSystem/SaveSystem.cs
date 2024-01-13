@@ -53,3 +53,14 @@ public class SaveSystem : MonoBehaviour
 		RestoreSceneState(data);
 	}
 }
+
+	public void Save()
+	{
+		_ = SaveAsync();
+	}
+
+	public void Load()
+	{
+		_ = LoadAsync();
+	}
+}
