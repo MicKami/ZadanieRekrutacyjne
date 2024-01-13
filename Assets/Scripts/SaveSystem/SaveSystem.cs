@@ -1,9 +1,14 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
 {
+	private string path => Path.Combine(Application.persistentDataPath, "savegame.json");
+
 	private Dictionary<Guid, SaveableComponent> GetIdToSaveablesMap()
 	{
 		Dictionary<Guid, SaveableComponent> result = new();
@@ -34,5 +39,17 @@ public class SaveSystem : MonoBehaviour
 				saveableComponent.RestoreState(kvp.Value);
 			}
 		}
+	}
+
+	public async Task SaveAsync()
+	{
+		var json = JsonConvert.SerializeObject(GetSceneState(), Formatting.Indented);
+		await File.WriteAllTextAsync(path, json, destroyCancellationToken);
+	}
+	public async Task LoadAsync()
+	{
+		var json = await File.ReadAllTextAsync(path, destroyCancellationToken);
+		var data = JsonConvert.DeserializeObject<Dictionary<Guid, Dictionary<long, object>>>(json);
+		RestoreSceneState(data);
 	}
 }
