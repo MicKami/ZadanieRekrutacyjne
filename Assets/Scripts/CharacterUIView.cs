@@ -38,7 +38,6 @@ public class CharacterUIView : MonoBehaviour
 		else
 		{
 			button.targetGraphic.color = Color.white;
-			button.isOn = false;
 		}
 	}
 
