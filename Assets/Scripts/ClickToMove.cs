@@ -13,17 +13,21 @@ public class ClickToMove : MonoBehaviour
 		{
 			if (TryGetFloorPoint(out var point))
 			{
-				foreach (var character in selectionData.AllCharacters)
-				{
-					if (selectionData.Selected == character)
-					{
-						character.MoveTo(point);
-					}
-					else
-					{
-						character.Follow(selectionData.Selected);
-					}
-				} 
+				Move(point);
+			}
+		}
+	}
+	private void Move(Vector3 position)
+	{
+		foreach (var character in selectionData.AllCharacters)
+		{
+			if (selectionData.Selected == character)
+			{
+				character.MoveTo(position);
+			}
+			else
+			{
+				character.Follow(selectionData.Selected);
 			}
 		}
 	}
