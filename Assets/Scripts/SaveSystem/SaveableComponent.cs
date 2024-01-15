@@ -21,16 +21,13 @@ public class SaveableComponent : MonoBehaviour
 		}
 	}
 
-	private Dictionary<long, ISaveable> idToObjectMap;
 	private Dictionary<ISaveable, long> objectToIdMap;
 	private void Awake()
 	{
-		idToObjectMap = new();
 		objectToIdMap = new();
 		foreach (var saveable in saveables)
 		{
 			long id = ManagedReferenceUtility.GetManagedReferenceIdForObject(this, saveable);
-			idToObjectMap.TryAdd(id, saveable);
 			objectToIdMap.TryAdd(saveable, id);
 		}
 	}
@@ -40,8 +37,8 @@ public class SaveableComponent : MonoBehaviour
 		Dictionary<long, object> result = new();
 		foreach (var saveable in saveables)
 		{
-			if(objectToIdMap.TryGetValue(saveable, out var id))
-			{ 
+			if (objectToIdMap.TryGetValue(saveable, out var id))
+			{
 				result.Add(id, saveable.CaptureState());
 			}
 		}
@@ -50,14 +47,15 @@ public class SaveableComponent : MonoBehaviour
 
 	public void RestoreState(Dictionary<long, object> data)
 	{
-		foreach (var kvp in data)
+		foreach (var saveable in saveables)
 		{
-			long id = kvp.Key;
-			if(idToObjectMap.TryGetValue(id, out var saveable))
+			if (objectToIdMap.TryGetValue(saveable, out var id))
 			{
-				object dataObject = data[id];
-				var state = ((JObject)dataObject).ToObject(saveable.Type);
-				saveable.RestoreState(state);
+				if(data.TryGetValue(id, out var dataObject))
+				{
+					var state = ((JObject)dataObject).ToObject(saveable.Type);
+					saveable.RestoreState(state);
+				}	
 			}
 		}
 	}

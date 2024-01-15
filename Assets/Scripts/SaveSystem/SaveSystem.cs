@@ -9,20 +9,13 @@ public class SaveSystem : MonoBehaviour
 {
 	private string path => Path.Combine(Application.persistentDataPath, "savegame.json");
 
-	private Dictionary<Guid, SaveableComponent> GetIdToSaveablesMap()
-	{
-		Dictionary<Guid, SaveableComponent> result = new();
-		foreach (var saveableComponent in FindObjectsOfType<SaveableComponent>())
-		{
-			result.Add(saveableComponent.Id, saveableComponent);
-		}
-		return result;
-	}
+	[field: SerializeField]
+	public List<SaveableComponent> SavedComponents { get; set; }
 
 	private Dictionary<Guid, Dictionary<long, object>> GetSceneState()
 	{
 		Dictionary<Guid, Dictionary<long, object>> result = new();
-		foreach (var saveableComponent in FindObjectsOfType<SaveableComponent>())
+		foreach (var saveableComponent in SavedComponents)
 		{
 			result.Add(saveableComponent.Id, saveableComponent.CaptureState());
 		}
@@ -31,12 +24,11 @@ public class SaveSystem : MonoBehaviour
 
 	private void RestoreSceneState(Dictionary<Guid, Dictionary<long, object>> data)
 	{
-		var idToSaveable = GetIdToSaveablesMap();
-		foreach (var kvp in data)
+		foreach (var saveableComponent in SavedComponents)
 		{
-			if (idToSaveable.TryGetValue(kvp.Key, out var saveableComponent))
+			if(data.TryGetValue(saveableComponent.Id, out var saveableState))
 			{
-				saveableComponent.RestoreState(kvp.Value);
+				saveableComponent.RestoreState(saveableState);
 			}
 		}
 	}
@@ -52,7 +44,6 @@ public class SaveSystem : MonoBehaviour
 		var data = JsonConvert.DeserializeObject<Dictionary<Guid, Dictionary<long, object>>>(json);
 		RestoreSceneState(data);
 	}
-}
 
 	public void Save()
 	{
