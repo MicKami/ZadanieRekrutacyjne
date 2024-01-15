@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,21 @@ using UnityEngine;
 public class CharacterSelectionData : ScriptableObject
 {
 	public List<Character> AllCharacters { get; set; } = new();
-	public Character Selected { get; set; }
+
+	private Character selected;
+	public Character Selected
+	{
+		get { return selected; }
+		set 
+		{
+			if(selected != value)
+			{
+				selected = value;
+				OnSelectionChange?.Invoke();
+			}
+		}
+	}
+	public event Action OnSelectionChange;
 
 #if UNITY_EDITOR
 	//Reset SO state after exiting playmode
