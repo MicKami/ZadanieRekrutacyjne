@@ -3,34 +3,33 @@ using UnityEngine;
 
 public class SaveCharacterAttributes : ISaveable
 {
-	[SerializeField] private Character characterToSave;
+	[SerializeField] private Character character;
 
-	public Type Type => typeof(CharacterData);
+	public Type Type => typeof(SaveData);
 
 	public void RestoreState(object obj)
 	{
-		var data = (CharacterData)obj;
-		characterToSave.Speed = data.speed;
-		characterToSave.RotationSpeed = data.rotationSpeed;
-		characterToSave.Stamina = data.stamina;
+		var data = (SaveData)obj;
+		character.Speed = data.speed;
+		character.RotationSpeed = data.rotationSpeed;
+		character.Stamina = data.stamina;
 	}
 
 	public object CaptureState()
 	{
-		return new CharacterData()
+		return new SaveData()
 		{
-			speed = characterToSave.Speed,
-			rotationSpeed = characterToSave.RotationSpeed,
-			stamina = characterToSave.Stamina
+			speed = character.Speed,
+			rotationSpeed = character.RotationSpeed,
+			stamina = character.Stamina
 		};
 	}
 
 	[Serializable]
-	private struct CharacterData
+	private struct SaveData
 	{
 		public float speed;
 		public float rotationSpeed;
 		public float stamina;
 	}
-
 }
