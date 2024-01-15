@@ -8,27 +8,32 @@ public class Character : MonoBehaviour
 	[field: SerializeField] public float Stamina { get; set; }
 
 	[SerializeField] private NavMeshAgent agent;
-	private Character followTarget;
+	public Character FollowTarget { get; private set; }
+	public Vector3 FollowPosition { get; private set; }
+	public bool HasTarget { get; private set; } = false;
 
 	public void MoveTo(Vector3 position)
 	{
-		followTarget = null;
+		HasTarget = true;
+		FollowPosition = position;
+		FollowTarget = null;
 		agent.stoppingDistance = 0f;
-		agent.SetDestination(position);
+		agent.SetDestination(FollowPosition);
 	}
 
 	public void Follow(Character character)
 	{
-		followTarget = character;
+		HasTarget = true;
+		FollowTarget = character;
 	}
 
 	private void Update()
 	{
-		if (followTarget)
+		if (FollowTarget)
 		{
 			agent.stoppingDistance = 1.5f;
-			var direction = (followTarget.transform.position - transform.position).normalized;
-			agent.SetDestination(followTarget.transform.position - direction);
+			var direction = (FollowTarget.transform.position - transform.position).normalized;
+			agent.SetDestination(FollowTarget.transform.position - direction);
 		}
 	}
 
