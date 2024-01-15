@@ -146,8 +146,8 @@ GameObject:
   - component: {fileID: 3628997645356756217}
   - component: {fileID: 3778273320260908284}
   - component: {fileID: 6495733073259005257}
-  - component: {fileID: 4540489498025498476}
   - component: {fileID: 2716115605694753650}
+  - component: {fileID: 4540489498025498476}
   m_Layer: 5
   m_Name: CharacterSelectorUI
   m_TagString: Untagged
@@ -262,26 +262,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &4540489498025498476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759966807687438316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e87ed1edcda33684ebf2e4ece0263900, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  character: {fileID: 0}
-  characterSelectionData: {fileID: 11400000, guid: 4e4725b93945a0145b797128616d352c, type: 2}
-  button: {fileID: 6495733073259005257}
-  characterNameText: {fileID: 6978636303423334713}
-  characterSpeedText: {fileID: 2369288585629631289}
-  characterAgilityText: {fileID: 4032419029647004312}
-  characterStaminaText: {fileID: 6608432537306100514}
-  selectedColor: {r: 1, g: 1, b: 0.454, a: 1}
 --- !u!114 &2716115605694753650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +282,26 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4540489498025498476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759966807687438316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87ed1edcda33684ebf2e4ece0263900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  characterSelectionData: {fileID: 11400000, guid: 4e4725b93945a0145b797128616d352c, type: 2}
+  button: {fileID: 6495733073259005257}
+  characterNameText: {fileID: 6978636303423334713}
+  characterSpeedText: {fileID: 2369288585629631289}
+  characterAgilityText: {fileID: 4032419029647004312}
+  characterStaminaText: {fileID: 6608432537306100514}
+  selectedColor: {r: 1, g: 1, b: 0.454, a: 1}
 --- !u!1 &2125838245853273999
 GameObject:
   m_ObjectHideFlags: 0
