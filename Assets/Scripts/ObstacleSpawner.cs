@@ -1,25 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ObstacleSpawner : MonoBehaviour
 {
 	private const int OBSTACLE_COUNT = 6;
-	[SerializeField] private GameObject obstaclePrefab;
+	[SerializeField] private AssetReferenceGameObject obstaclePrefabReference;
 	public List<GameObject> SpawnedObstacles { get; private set; }
 
-	private void Start()
+	private async void Start()
 	{
 		SpawnedObstacles = new();
-		for (int i = 0; i < OBSTACLE_COUNT; i++)
+		var handle = obstaclePrefabReference.LoadAssetAsync<GameObject>();
+		var gameObject = await handle.Task;
+		if (handle.Status == AsyncOperationStatus.Succeeded)
 		{
-			var spawn = Instantiate(obstaclePrefab);
+			for (int i = 0; i < OBSTACLE_COUNT; i++)
+			{
+				var spawn = Instantiate(gameObject);
 
-			spawn.transform.position = new Vector3(Random.Range(-15f, 20f), 0.5f, Random.Range(-15f, 20f));
-			spawn.transform.localScale = new Vector3(Random.Range(4, 16), 1, 1);
-			spawn.transform.rotation = Quaternion.Euler(new Vector3(0, 90f * Random.Range(0, 2), 0));
+				spawn.transform.position = new Vector3(Random.Range(-15f, 20f), 0.5f, Random.Range(-15f, 20f));
+				spawn.transform.localScale = new Vector3(Random.Range(4, 16), 1, 1);
+				spawn.transform.rotation = Quaternion.Euler(new Vector3(0, 90f * Random.Range(0, 2), 0));
 
-			SpawnedObstacles.Add(spawn);
+				SpawnedObstacles.Add(spawn);
+			}
 		}
 	}
 }

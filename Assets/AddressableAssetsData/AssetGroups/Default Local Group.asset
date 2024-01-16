@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: fda1aae9c10807641a57733cfde32abe
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: affcfe17a7bc32948b2498c68d6056b1
+    m_Address: Assets/Prefabs/Obstacle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 56940516b9a2dc14fb58e836b6941faa, type: 2}
   m_SchemaSet:
