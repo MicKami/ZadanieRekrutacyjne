@@ -11,6 +11,7 @@ public class SaveNavmeshAgentState : ISaveable
 	public void RestoreState(object obj)
 	{
 		var data = (SaveData)obj;
+		navMeshAgent.transform.rotation = data.agentRotation;
 		navMeshAgent.Warp(data.agentPosition);
 		navMeshAgent.velocity = data.agentVelocity;
 	}
@@ -20,7 +21,8 @@ public class SaveNavmeshAgentState : ISaveable
 		return new SaveData()
 		{
 			agentPosition = navMeshAgent.nextPosition,
-			agentVelocity = navMeshAgent.velocity
+			agentVelocity = navMeshAgent.velocity,
+			agentRotation = navMeshAgent.transform.rotation
 		};
 	}
 
@@ -29,5 +31,6 @@ public class SaveNavmeshAgentState : ISaveable
 	{
 		public Vector3Json agentPosition;
 		public Vector3Json agentVelocity;
+		public Vector4Json agentRotation;
 	}
 }
